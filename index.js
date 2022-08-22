@@ -1,70 +1,16 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
 const mysql = require('mysql2');
+const { printEmployees, addEmployees, updateEmployees } = require('./helpers/employee');
+const { printRoles, addRoles } = require('./helpers/roles');
+const { printDepartments, addDepartments} = require('./helpers/departments');
 
-
-const employeeQuestions = [
-    {
-        type: 'input',
-        message: 'Enter the name of your team member:',
-        name: 'name'
-    },
-    {
-        type: 'list',
-        message: 'Select their position:',
-        name: 'role',
-        choices: ['Manager', 'Engineer', 'Intern']
-    },
-    {
-        type: 'input',
-        message: 'Enter the email of your team member:',
-        name: 'email'
-    },
-];
-
-const roleQuestions = [
-    {
-        type: 'input',
-        message: 'Enter the office number of this manager:',
-        name: 'officeNum'
-    },
-    {
-        type: 'input',
-        message: 'Enter the github username of this engineer:',
-        name: 'github'
-    },
-    {
-        type: 'input',
-        message: 'Enter the school this intern is attending/graduated from:',
-        name: 'school'
-    },
-];
-
-// Create a function to initialize app
-// https://www.reddit.com/r/node/comments/9q3chw/looping_inquirerjs_prompts/
-// https://stackoverflow.com/questions/45060200/in-node-js-how-do-i-create-a-prompt-loop-using-inquirer
+// Main Menu Prompt
 function mainMenuPrompt() {
     return inquirer
         .prompt(
             {
                 type: 'list',
-                message: `
-
-    ███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████ 
-    ██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██      
-    █████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████   
-    ██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██      
-    ███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████ 
-
-
-    ███    ███  █████  ███    ██  █████   ██████  ███████ ██████         
-    ████  ████ ██   ██ ████   ██ ██   ██ ██       ██      ██   ██        
-    ██ ████ ██ ███████ ██ ██  ██ ███████ ██   ███ █████   ██████         
-    ██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██        
-    ██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██        
-                                                                                     
-                                                                                     
-                `,
+                message: `MAIN MENU: `,
                 name: 'menu',
                 choices: [
                     'View All Employees',
@@ -81,31 +27,38 @@ function mainMenuPrompt() {
             switch (response.menu) {
                 case 'View All Employees':
                     console.log('\n-------------\n');
-
+                    printEmployees();
+                    mainMenuPrompt();
                     break;
                 case 'Add Employee':
                     console.log('\n-------------\n');
-
+                    addEmployees();
+                    mainMenuPrompt();
                     break;
                 case 'Update Employee Role':
                     console.log('\n-------------\n');
-
+                    updateEmployees();
+                    mainMenuPrompt();
                     break;
                 case 'View All Roles':
                     console.log('\n-------------\n');
-                    
+                    printRoles();
+                    mainMenuPrompt();
                     break;
                 case 'Add Role':
                     console.log('\n-------------\n');
-
+                    addRoles();
+                    mainMenuPrompt();
                     break;
                 case 'View All Departments':
                     console.log('\n-------------\n');
-
+                    printDepartments();
+                    mainMenuPrompt();
                     break;
                 case 'Add Department':
                     console.log('\n-------------\n');
-
+                    addDepartments();
+                    mainMenuPrompt();
                     break;
                 case 'QUIT':
                     break;
@@ -113,6 +66,21 @@ function mainMenuPrompt() {
         });
 }
 
-// Function call to initialize app
-mainMenuPrompt();
+// Function calls to initialize app
+console.log(`
 
+███████ ███    ███ ██████  ██       ██████  ██    ██ ███████ ███████ 
+██      ████  ████ ██   ██ ██      ██    ██  ██  ██  ██      ██      
+█████   ██ ████ ██ ██████  ██      ██    ██   ████   █████   █████   
+██      ██  ██  ██ ██      ██      ██    ██    ██    ██      ██      
+███████ ██      ██ ██      ███████  ██████     ██    ███████ ███████ 
+
+
+███    ███  █████  ███    ██  █████   ██████  ███████ ██████         
+████  ████ ██   ██ ████   ██ ██   ██ ██       ██      ██   ██        
+██ ████ ██ ███████ ██ ██  ██ ███████ ██   ███ █████   ██████         
+██  ██  ██ ██   ██ ██  ██ ██ ██   ██ ██    ██ ██      ██   ██        
+██      ██ ██   ██ ██   ████ ██   ██  ██████  ███████ ██   ██                                                                                  
+
+`)
+mainMenuPrompt();
