@@ -1,6 +1,7 @@
 INSERT INTO departments (name)
 VALUES ("Nintendo"),
        ("Monolith Soft"),
+       ("Sony"),
        ("Intelligent Systems");
        
 INSERT INTO roles (title, salary, department_id)
@@ -9,9 +10,9 @@ VALUES ("CEO",1000000,1),
        ("Producer",200000,2),
        ("Programmer",200000,2),
        ("Composer",20000,2),
-       ("Mobile Marketing",30000,3),
-       ("History Researcher",30000,3),
-       ("Head Writer",30000,3);
+       ("Mobile Marketing",30000,4),
+       ("History Researcher",30000,4),
+       ("Head Writer",30000,4);
        
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES ("Doug","Bowser",1, null),
