@@ -229,9 +229,6 @@ const printEmployees = () => {
             if (err) throw console.error(err)
             const departmentRes = await res
             console.table(departmentRes);
-            console.log(employeeArr);
-            console.log(managerArr);
-            console.log(managerIDArr);
             console.log('\n\n');
             mainMenuPrompt();
         }
@@ -272,7 +269,6 @@ const addEmployees = async () => {
     } else {
         managerRes = managerIDArr[managerArr.indexOf(response.manager)];
     }
-    console.log(managerRes)
     db.query("INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)",
         [response.firstName.trim(), response.lastName.trim(), rolesArr.indexOf(response.role) + 1, managerRes],
         (err) => {
